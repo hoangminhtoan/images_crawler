@@ -1,13 +1,11 @@
 art
-travel
-mom care products
+painting
+travel locations
 baby care products
+mom care products
 cuisine
-vietnamese cuisine 
-western cuisine
-oriental cuisine
 fine dining food 
 fine dining restaurant
-vietnamese restaurant
-
-
+oriental cuisine
+vietnamese cuisine 
+western cuisine
