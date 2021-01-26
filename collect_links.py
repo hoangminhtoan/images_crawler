@@ -275,7 +275,8 @@ class CollectLinks:
                     print(future.exception())
 
         links = crawled_urls[:min(len(crawled_urls), target_num)]
-
+        links = self.remove_duplicates(links)
+        
         return links
 
     def naver(self, keyword, add_url=""):
@@ -336,9 +337,3 @@ class CollectLinks:
         self.browser.close()
 
         return links
-
-
-if __name__ == '__main__':
-    collect = CollectLinks()
-    links = collect.naver('박보영')
-    print(len(links), links)

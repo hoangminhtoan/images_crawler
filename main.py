@@ -39,7 +39,7 @@ class Sites:
             return 'naver'
         elif code == Sites.BING:
             return 'bing'
-        elif code == Sites.baidu:
+        elif code == Sites.BAIDU:
             return 'baidu'
 
     @staticmethod

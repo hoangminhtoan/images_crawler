@@ -25,7 +25,7 @@ python3 main.py [--skip true] [--threads 50] [--google true] [--naver true] [--b
 ```
 --skip true        Skips keyword if downloaded directory already exists. This is needed when re-downloading.
 
---threads 116        Number of threads to download.
+--threads 50        Number of threads to download.
 
 --google true      Download from google.com (boolean)
 
