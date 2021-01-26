@@ -1,7 +1,7 @@
 # AutoCrawler
 Baidu, Bing, Google, Naver multiprocess image crawler (High Quality & Speed & Customizable)
 
-![](assets/animation.gif)
+![](asset/animation.gif)
 
 # How to use
 
@@ -51,11 +51,7 @@ python3 main.py [--skip true] [--threads 50] [--google true] [--naver true] [--b
 
 You can download full resolution image of JPG, GIF, PNG files by specifying --full true
 
-![](assets/full.gif)
-
-# References
-* [Auto Crawler](https://github.com/YoongiKim/AutoCrawler)
-* [Image Downloader](https://github.com/sczhengyabin/Image-Downloader)
+![](asset/full.gif)
 
 
 # Data Imbalance Detection
@@ -73,3 +69,7 @@ You can make your own crawler by changing collect_links.py
 # Issues
 
 As google site consistently changes, please make issues if it doesn't work.
+
+# References
+* [Auto Crawler](https://github.com/YoongiKim/AutoCrawler)
+* [Image Downloader](https://github.com/sczhengyabin/Image-Downloader)
