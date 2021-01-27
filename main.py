@@ -367,8 +367,8 @@ if __name__ == '__main__':
     else:
         _no_gui = False
 
-    print('Options - skip:{}, threads:{}, google:{}, naver:{}, full_resolution:{}, face:{}, no_gui:{}, limit:{}'
-          .format(_skip, _threads, _google, _naver, _full, _face, _no_gui, _limit))
+    print('Options - skip:{}, threads:{}, baidu:{}, bing:{}, google:{}, naver:{}, full_resolution:{}, face:{}, no_gui:{}, limit:{}'
+          .format(_skip, _threads, _baidu, _bing, _google, _naver, _full, _face, _no_gui, _limit))
 
     crawler = AutoCrawler(skip_already_exist=_skip, n_threads=_threads,
                           do_google=_google, do_naver=_naver, do_bing=_bing, do_baidu=_baidu, full_resolution=_full,
