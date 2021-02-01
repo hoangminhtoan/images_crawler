@@ -77,29 +77,40 @@ class CollectLinks():
     def kiip(self, url, page_idx):
         if 'SB' in url:
             folder = "SB_4"
-        else:
+        elif 'WB' in url:
             folder = "WB_4"
+        else:
+            folder = "Topik"
 
         path = "./download/{}".format(folder)
 
         self.make_dir('{}'.format(path))
         for i in range(1, page_idx + 1):
-            link = url.format(page_idx)
+            link = url.format(i)
+            file_name = link.split('/')[-1]
             print("Crawling Image : {}".format(link))
             response = requests.get(link, stream=True)
-            self.save_object_to_file(response, path)
+            self.save_object_to_file(response, os.path.join(path, file_name))
             del response
 
 if __name__ == '__main__':
-    urls = ['https://kcenter.korean.go.kr/repository/ebook/culture/SB_step4/assets/page-images/page-532044-{:4d}.jpg',
-                'https://kcenter.korean.go.kr/repository/ebook/culture/WB_step4/assets/page-images/page-650022-{:4d}.jpg']
-    pages = [248, 160]
-
     crawler = CollectLinks()
+
+    # kii4
+    #urls = ['https://kcenter.korean.go.kr/repository/ebook/culture/SB_step4/assets/page-images/page-532044-{:0>4d}.jpg',
+                #'https://kcenter.korean.go.kr/repository/ebook/culture/WB_step4/assets/page-images/page-650022-{:0>4d}.jpg']
+    #pages = [248, 160]
+
+   
+
+    
+    # topik minji
+    urls =['http://www.dmook.co.kr/fileRoot/kr/t/o/toko/DigitalAlbumRoot/200112142453/data/{}_0_0.jpg']
+
+    pages = [595]
 
     for (url, page_idx) in zip(urls, pages):
         crawler.kiip(url, page_idx)
-
     
 
     
