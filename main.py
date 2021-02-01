@@ -1,20 +1,3 @@
-"""
-Copyright 2018 YoongiKim
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-"""
-
-
 import os
 import requests
 import shutil
@@ -55,7 +38,7 @@ class AutoCrawler:
                 do_google=True, do_naver=True, 
                 do_bing=True, do_baidu=True,
                 download_path='download',
-                 full_resolution=False, face=False, no_gui=False, limit=0):
+                 full_resolution=True, face=False, no_gui=False, limit=0):
         """
         :param skip_already_exist: Skips keyword already downloaded before. This is needed when re-downloading.
         :param n_threads: Number of threads to download.
