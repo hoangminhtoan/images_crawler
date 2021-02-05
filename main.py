@@ -179,8 +179,9 @@ class AutoCrawler:
                     response = requests.get(link, stream=True)
                     ext = self.get_extension_from_link(link)
                     is_base64 = False
-
-                no_ext_path = '{}/{}/{}_{}_{}'.format(self.download_path.replace('"', ''), keyword, keyword, site_name, str(index).zfill(4))
+                
+                tmp = keyword.replace(' ', '_').strip()
+                no_ext_path = '{}/{}/{}_{}_{}'.format(self.download_path.replace('"', ''), tmp, tmp, site_name, str(index).zfill(4))
                 path = no_ext_path + '.' + ext
                 self.save_object_to_file(response, path, is_base64=is_base64)
 

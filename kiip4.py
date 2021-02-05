@@ -3,6 +3,7 @@ import os.path as osp
 import shutil
 import platform
 import requests
+from unidecode import unidecode
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options

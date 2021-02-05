@@ -1,3 +1,4 @@
+unidecode
 certifi
 chardet
 idna
