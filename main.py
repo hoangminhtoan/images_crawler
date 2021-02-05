@@ -7,6 +7,8 @@ from collect_links import CollectLinks
 import imghdr
 import base64
 
+from unidecode import unidecode # remove notation in vietnamese keywords
+
 
 class Sites:
     GOOGLE = 1
@@ -38,7 +40,7 @@ class AutoCrawler:
                 do_google=True, do_naver=True, 
                 do_bing=True, do_baidu=True,
                 download_path='download',
-                 full_resolution=True, face=False, no_gui=False, limit=0):
+                full_resolution=True, face=False, no_gui=False, limit=0):
         """
         :param skip_already_exist: Skips keyword already downloaded before. This is needed when re-downloading.
         :param n_threads: Number of threads to download.
@@ -149,6 +151,8 @@ class AutoCrawler:
         return data
 
     def download_images(self, keyword, links, site_name, max_count=0):
+        keyword = unidecode(keyword)
+        keyword = keyword.replace(' ', '_')
         self.make_dir('{}/{}'.format(self.download_path, keyword.replace('"', '')))
         total = len(links)
         success_count = 0
@@ -244,7 +248,9 @@ class AutoCrawler:
         tasks = []
 
         for keyword in keywords:
-            dir_name = '{}/{}'.format(self.download_path, keyword)
+            new_keyword = unidecode(keyword)
+            new_keyword = new_keyword.replace(' ', '_')
+            dir_name = '{}/{}'.format(self.download_path, new_keyword)
             if os.path.exists(os.path.join(os.getcwd(), dir_name)) and self.skip:
                 print('Skipping already existing directory {}'.format(dir_name))
                 continue
