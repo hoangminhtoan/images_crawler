@@ -337,9 +337,11 @@ class CollectLinks:
             self.browser.get(concat_url)
             for element in self.browser.find_elements_by_css_selector(".photo-list-photo-view"):
                 img_url = 'https:'+ re.search(r'url\(\"(.*)\"\)', element.get_attribute("style")).group(1)
-                links.append(img_url)
+                # the url like: https://live.staticflickr.com/xxx/xxxxx_m.jpg
+                # if you want to get a clearer(and larger) picture, remove the "_m" in the end of the url.
+                links.append(img_url.replace('_m.jpg', '.jpg'))
             
-            if len(links) > 3000:
+            if len(links) > 2121:
                 break
 
         links = self.remove_duplicates(links)

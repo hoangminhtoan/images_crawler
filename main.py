@@ -307,7 +307,7 @@ class AutoCrawler:
         for dir, n_files in dict_num_files.items():
             if n_files < avg * 0.5:
                 dict_too_small[dir] = n_files
-
+    
         if len(dict_too_small) >= 1:
             print('Data imbalance detected.')
             print('Below keywords have smaller than 50% of average file count.')
@@ -337,10 +337,10 @@ if __name__ == '__main__':
     parser.add_argument('--skip', type=str, default='true',
                         help='Skips keyword already downloaded before. This is needed when re-downloading.')
     parser.add_argument('--threads', type=int, default=16, help='Number of threads to download.')
-    parser.add_argument('--google', type=str, default='true', help='Download from google.com (boolean)')
-    parser.add_argument('--naver', type=str, default='true', help='Download from naver.com (boolean)')
-    parser.add_argument('--bing', type=str, default='true', help='Download from bing.com (boolean)')
-    parser.add_argument('--baidu', type=str, default='true', help='Download from baidu.com (boolean)')
+    parser.add_argument('--google', type=str, default='false', help='Download from google.com (boolean)')
+    parser.add_argument('--naver', type=str, default='false', help='Download from naver.com (boolean)')
+    parser.add_argument('--bing', type=str, default='false', help='Download from bing.com (boolean)')
+    parser.add_argument('--baidu', type=str, default='false', help='Download from baidu.com (boolean)')
     parser.add_argument('--flickr', type=str, default='true', help='Download from flickr.com (boolean)')
     parser.add_argument('--full', type=str, default='true', help='Download full resolution image instead of thumbnails (slow)')
     parser.add_argument('--face', type=str, default='false', help='Face search mode')
