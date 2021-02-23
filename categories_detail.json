@@ -1,0 +1,179 @@
+{
+    "vehicle": {
+        "car" : "Car",
+        "bus" : "Bus",
+        "train" : "Bike",
+        "motobike" : "Motobike",
+        "boat" : "Boats"
+    },
+    "electronics_devices" : {
+        "smartphone" : "Smartphone",
+        "tablet" : "Tablet",
+        "computer_memory" : "Computer Memory",
+        "computer_monitor" : "Computer Monitors",
+        "computer_processor": "Computer Processors",
+        "desktop_computer" : "Desktop Computers",
+        "hard_drive" : "Hard drives",
+        "camera" : "Cameras",
+        "smart_watch" : "Smart Watch"
+    },
+    "home_appliances_furniture" : {
+        "air_conditioner" : "Air Conditioner",
+        "water_heater" : "Water Heater",
+        "cooker" : "Cooker",
+        "dish_washer" : "Dish Washer",
+        "fridge" : "Fridge",
+        "washing_machine" : "Washing Machine",
+        "vacuum_cleaner" : "Vacuum Cleaner",
+        "water_purifier" : "Water Purifier",
+        "oven" : "Oven",
+        "tv" : "Television",
+        "desk" : "Desk",
+        "bookcase": "Bookcase",
+        "dining_table" : "Dining Table",
+        "chair" : "Chair"
+    },
+    "food_drinks" : {
+        "beer" : "Beer",
+        "distilled_berage" : "Distilled Beverage",
+        "wine" : "Wine",
+        "coffee" : "Coffee", 
+        "energy_drink" : "Energy Drink", 
+        "juice" : "Juice",
+        "soft_drink" : "Soft Drink", 
+        "tea" : "Tea",
+        "corn" : "Corn",
+        "bubble_tea" : "Bubble Tea",
+        "thai_cuisine" : "Thai Cuisine",
+        "vietnam_cuisine" : "Vietnam Cuisine",
+        "korean_cuisine" : "Korean Cuisine",
+        "japanese_cuisine" : "Japanese Cuisine",
+        "bbq" : "Barbecue",
+        "chocolate" : "Chocolate", 
+        "desserts": "Desserts", 
+        "fast_food" : "Fast Food", 
+        "pizza" : "Pizza", 
+        "seafood" : "Seafood", 
+        "restaunrant" : "Restaurants"
+    },
+    "beauty_fashion" : {
+        "beauty_salon": "Beauty Salons", 
+        "cosmetics" : "Cosmetics",
+        "fragrances" : "Fragrances",
+        "hair_products" : "Hair Products",
+        "beauty_spa" : "Beauty Spa",
+        "tatoos" : "Tattoos", 
+        "dresses" : "Dresses",
+        "handbags" : "Handbags",
+        "jewelry" : "Jewelry",
+        "sunglasses" : "Sunglasses",
+        "children_clothes" : "Children’s Clothing",
+        "mean_clothes" : "Men’s Clothing",
+        "dress_shoes" : "Dress Shoes",
+        "shoes" : "Shoes",
+        "women_clothes" : "Women’s Clothing"
+    },
+    "pets" : {
+        "cat" : "Cat",
+        "dog" : "Dog",
+        "parrot" : "Companion Parrot",
+        "fishkeeping" : "Fishkeeping"
+    },
+    "art" : {
+        "art" : "Art",
+        "painting" : "Painting",
+        "sculpture": "Sculpture"
+    },
+    "travel" : {
+        "adventrue_travel" : "Adventure Travel",
+        "air_travel" : "Air Travel",
+        "beach" : "Beaches",
+        "cruise" : "Cruises", 
+        "hotel" : "Hotels",
+        "lake" : "Lakes",
+        "moutain" : "Mountain",
+        "theme_park" : "Theme Parks"
+    },
+    "science" : {
+        "chemistry" : "Chemistry",
+        "sun" : "Sun",
+        "galaxy" : "galaxy",
+        "biology" : "Biology",
+        "astronomy" : "Astronomy",
+        "math" : "Mathematics",
+        "earth" : "Earth",
+        "universe" : "Universe",
+        "physics" : "Physics",
+        "geography" : "Geography"
+    },
+    "finance" : {
+        "credit_card" : "Credit Card",
+        "insurance" : "Insurance",
+        "investment" : "Investment",
+        "mortage" : "Mortgage Loans"
+    },
+    "healthcare" : {
+        "doctor" : "Doctor",
+        "patient" : "Patient",
+        "drug" : "Drug",
+        "vaccination" : "Vaccination",
+        "xray" : "X-ray",
+        "nurse" : "Nurse"
+    },
+    "nature" : {
+        "flower" : "Flower",
+        "snake" : "Snake",
+        "valley" : "Valley",
+        "waterfall" : "Waterfall",
+        "lakeside" : "Lakeside",
+        "fountain" : "Fountain",
+        "dock" : "Dock",
+        "dam" : "Dam"
+    },
+    "games_sport" : {
+        "action_game" : "Action Game",
+        "board_game" :  "Board Game", 
+        "firat_person_shooter_game" : "First-person Shooter Game",
+        "gambling" : "Gambling",
+        "online_game" : "Online Game",
+        "online_poker" : "Online  Poker",
+        "racing_game" : "Racing Game",
+        "sport_game" : "Sport Game",
+        "strategy_game" : "Strategy Game",
+        "video_game" : "Video Games",
+        "soccer" : "Soccer",
+        "volleyball" : "Volleyball",
+        "tennis": "Tennis",
+        "golf" : "Golf",
+        "marathon" : "Marathon",
+        "basketball" : "Basketball",
+        "swimming" : "Swimming"
+    },
+    "software" : {
+        "software" : "Software"
+    },
+    "book" : {
+        "comic_book" : "Comic Book",
+        "detective_and_mystery_book" : "Detective & Mystery Book",
+        "graphic_novel" : "Graphic Novel",
+        "historical_fiction" : "Historical Fiction",
+        "literary_fiction" : "Literary Fiction",
+        "non_fiction" : "Non-Fiction"
+    },
+    "family_relationships" : {
+        "person" : "Person",
+        "dating" : "Dating", 
+        "family" : "Family",
+        "friendship" : "Friendship", 
+        "marriage" : "Marriage", 
+        "wedding" : "Wedding"
+    },
+    "forbidden_contents" : {
+        "adult_content" : "Adult Contents",
+        "violence" : "Violence",
+        "racy" : "Racy"
+    },
+    "misc" : {
+        "misc": "Misc"
+    }
+}
