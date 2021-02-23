@@ -329,11 +329,11 @@ class CollectLinks:
         
         links = []
 
-        pages = range(1, 50000)
+        pages = range(1, 5000)
 
         for page in pages:
             concat_url = original_url.format(keyword, page)
-            print("Now it is page", page)
+            print("Now it is page {} for {}".format(page, keyword))
             self.browser.get(concat_url)
             for element in self.browser.find_elements_by_css_selector(".photo-list-photo-view"):
                 img_url = 'https:'+ re.search(r'url\(\"(.*)\"\)', element.get_attribute("style")).group(1)
@@ -349,7 +349,6 @@ class CollectLinks:
         self.browser.close()
 
         return links
-
 
 if __name__ == '__main__':
     crawler = CollectLinks()
