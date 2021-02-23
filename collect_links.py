@@ -11,6 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import os.path as osp
+import re
 
 
 class CollectLinks:
@@ -320,3 +321,35 @@ class CollectLinks:
         self.browser.close()
 
         return links
+
+    def flickr(self, keyword, add_url=""):
+        original_url = "https://www.flickr.com/search/?height=640&width=640&dimension_search_mode=min&view_all=1&text={}".format(keyword)
+        self.browser.get(original_url)
+        time.sleep(1)
+        
+        links = []
+        count = 1
+
+        pages = range(1, 2)
+
+        for page in pages:
+            concat_url = original_url.format(page)
+            print("Now it is page", page)
+            self.browser.get(concat_url)
+            for element in self.browser.find_elements_by_css_selector(".photo-list-photo-view"):
+                img_url = 'https:'+ re.search(r'url\(\"(.*)\"\)', element.get_attribute("style")).group(1)
+                links.append(img_url)
+
+
+        links = self.remove_duplicates(links)
+        print('Collect links done. Site: {}, Keyword: {}, Total: {}'.format('naver_full', keyword, len(links)))
+        self.browser.close()
+
+        return links
+
+
+if __name__ == '__main__':
+    crawler = CollectLinks()
+    links = crawler.flickr("car")
+
+    print(links)

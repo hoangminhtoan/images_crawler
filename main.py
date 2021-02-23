@@ -15,6 +15,7 @@ class Sites:
     NAVER = 2
     BING = 3
     BAIDU = 4
+    FLICKR = 5
 
     @staticmethod
     def get_text(code):
@@ -26,6 +27,8 @@ class Sites:
             return 'bing'
         elif code == Sites.BAIDU:
             return 'baidu'
+        elif code == Sites.FLICKR:
+            return 'flickr'
 
     @staticmethod
     def get_face_url(code):
@@ -38,7 +41,7 @@ class Sites:
 class AutoCrawler:
     def __init__(self, skip_already_exist=True, n_threads=4, 
                 do_google=True, do_naver=True, 
-                do_bing=True, do_baidu=True,
+                do_bing=True, do_baidu=True, do_flickr=True,
                 download_path='download',
                 full_resolution=True, face=False, no_gui=False, limit=0):
         """
@@ -59,6 +62,7 @@ class AutoCrawler:
         self.do_naver = do_naver
         self.do_bing = do_bing 
         self.do_baidu = do_baidu
+        self.do_flickr = do_flickr
         self.download_path = download_path
         self.full_resolution = full_resolution
         self.face = face
@@ -228,6 +232,9 @@ class AutoCrawler:
             elif site_code == Sites.BAIDU:
                 links = collect.baidu(keyword, add_url)
 
+            elif site_code == Sites.FLICKR:
+                links = collect.flickr(keyword, add_url)
+
             else:
                 print('Invalid Site Code')
                 links = []
@@ -267,6 +274,9 @@ class AutoCrawler:
             
             if self.do_baidu:
                 tasks.append([keyword, Sites.BAIDU])
+
+            if self.do_flickr:
+                tasks.append([keyword, Sites.FLICKR])
 
         pool = Pool(self.n_threads)
         pool.map_async(self.download, tasks)
@@ -331,6 +341,7 @@ if __name__ == '__main__':
     parser.add_argument('--naver', type=str, default='true', help='Download from naver.com (boolean)')
     parser.add_argument('--bing', type=str, default='true', help='Download from bing.com (boolean)')
     parser.add_argument('--baidu', type=str, default='true', help='Download from baidu.com (boolean)')
+    parser.add_argument('--flickr', type=str, default='true', help='Download from flickr.com (boolean)')
     parser.add_argument('--full', type=str, default='true', help='Download full resolution image instead of thumbnails (slow)')
     parser.add_argument('--face', type=str, default='false', help='Face search mode')
     parser.add_argument('--no_gui', type=str, default='auto', help='No GUI mode. Acceleration for full_resolution mode. '
@@ -345,6 +356,7 @@ if __name__ == '__main__':
     _naver = False if str(args.naver).lower() == 'false' else True
     _bing = False if str(args.bing).lower() == 'false' else True
     _baidu = False if str(args.baidu).lower() == 'false' else True
+    _flickr = False if str(args.flickr).lower() == 'false' else True
     _full = False if str(args.full).lower() == 'false' else True
     _face = False if str(args.face).lower() == 'false' else True
     _limit = int(args.limit)
@@ -357,10 +369,11 @@ if __name__ == '__main__':
     else:
         _no_gui = False
 
-    print('Options - skip:{}, threads:{}, baidu:{}, bing:{}, google:{}, naver:{}, full_resolution:{}, face:{}, no_gui:{}, limit:{}'
-          .format(_skip, _threads, _baidu, _bing, _google, _naver, _full, _face, _no_gui, _limit))
+    print('Options - skip:{}, threads:{}, baidu:{}, bing:{}, google:{}, naver:{}, flickr:{}, full_resolution:{}, face:{}, no_gui:{}, limit:{}'
+          .format(_skip, _threads, _baidu, _bing, _google, _naver, _flickr, _full, _face, _no_gui, _limit))
 
     crawler = AutoCrawler(skip_already_exist=_skip, n_threads=_threads,
-                          do_google=_google, do_naver=_naver, do_bing=_bing, do_baidu=_baidu, full_resolution=_full,
+                          do_google=_google, do_naver=_naver, do_bing=_bing, do_baidu=_baidu,
+                          do_flickr=_flickr, full_resolution=_full,
                           face=_face, no_gui=_no_gui, limit=_limit)
     crawler.do_crawling()
