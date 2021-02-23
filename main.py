@@ -6,7 +6,7 @@ import argparse
 from collect_links import CollectLinks
 import imghdr
 import base64
-
+from numba import jit, cuda
 from unidecode import unidecode # remove notation in vietnamese keywords
 
 
@@ -42,7 +42,7 @@ class AutoCrawler:
     def __init__(self, skip_already_exist=True, n_threads=4, 
                 do_google=True, do_naver=True, 
                 do_bing=True, do_baidu=True, do_flickr=True,
-                download_path='download',
+                download_path='download_210224',
                 full_resolution=True, face=False, no_gui=False, limit=0):
         """
         :param skip_already_exist: Skips keyword already downloaded before. This is needed when re-downloading.
@@ -153,7 +153,8 @@ class AutoCrawler:
         header, encoded = str(src).split(',', 1)
         data = base64.decodebytes(bytes(encoded, encoding='utf-8'))
         return data
-
+    
+    @jit(target="cuda")
     def download_images(self, keyword, links, site_name, max_count=0):
         keyword = unidecode(keyword)
         keyword = keyword.replace(' ', '_')
@@ -247,6 +248,7 @@ class AutoCrawler:
         except Exception as e:
             print('Exception {}:{} - {}'.format(site_name, keyword, e))
 
+    @jit(target="cuda")
     def download(self, args):
         self.download_from_site(keyword=args[0], site_code=args[1])
 
@@ -337,7 +339,7 @@ if __name__ == '__main__':
     parser.add_argument('--skip', type=str, default='true',
                         help='Skips keyword already downloaded before. This is needed when re-downloading.')
     parser.add_argument('--threads', type=int, default=16, help='Number of threads to download.')
-    parser.add_argument('--google', type=str, default='false', help='Download from google.com (boolean)')
+    parser.add_argument('--google', type=str, default='true', help='Download from google.com (boolean)')
     parser.add_argument('--naver', type=str, default='false', help='Download from naver.com (boolean)')
     parser.add_argument('--bing', type=str, default='false', help='Download from bing.com (boolean)')
     parser.add_argument('--baidu', type=str, default='false', help='Download from baidu.com (boolean)')
