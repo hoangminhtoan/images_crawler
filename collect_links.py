@@ -12,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import os.path as osp
 import re
-from numba import jit, cuda
+import numba
 
 
 class CollectLinks:
@@ -90,7 +90,7 @@ class CollectLinks:
     def remove_duplicates(_list):
         return list(dict.fromkeys(_list))
 
-    @jit(target="cuda")
+    @numba.jit
     def bing(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
         self.browser.get("https://www.bing.com/images/search?q={}".format(keyword))
@@ -127,7 +127,7 @@ class CollectLinks:
 
         return links
 
-    @jit(target="cuda")
+    @numba.jit
     def google(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
 
@@ -196,7 +196,7 @@ class CollectLinks:
 
         return links
     
-    @jit(target="cuda")
+    @numba.jit
     def baidu(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
 
@@ -266,7 +266,7 @@ class CollectLinks:
         
         return links
 
-    @jit(target="cuda")
+    @numba.jit
     def naver(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
 
@@ -326,7 +326,7 @@ class CollectLinks:
 
         return links
 
-    @jit(target="cuda")
+    @numba.jit
     def flickr(self, keyword, add_url=""):
         original_url = "https://www.flickr.com/search/?dimension_search_mode=min&height=640&width=640&text={}&advanced=1&page={}"
         self.browser.get(original_url.format(keyword, 1))

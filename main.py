@@ -6,7 +6,7 @@ import argparse
 from collect_links import CollectLinks
 import imghdr
 import base64
-from numba import jit, cuda
+import numba
 from unidecode import unidecode # remove notation in vietnamese keywords
 
 
@@ -42,7 +42,7 @@ class AutoCrawler:
     def __init__(self, skip_already_exist=True, n_threads=4, 
                 do_google=True, do_naver=True, 
                 do_bing=True, do_baidu=True, do_flickr=True,
-                download_path='download_210224',
+                download_path='download_210224_1',
                 full_resolution=True, face=False, no_gui=False, limit=0):
         """
         :param skip_already_exist: Skips keyword already downloaded before. This is needed when re-downloading.
@@ -154,7 +154,7 @@ class AutoCrawler:
         data = base64.decodebytes(bytes(encoded, encoding='utf-8'))
         return data
     
-    @jit(target="cuda")
+    @numba.jit
     def download_images(self, keyword, links, site_name, max_count=0):
         keyword = unidecode(keyword)
         keyword = keyword.replace(' ', '_')
@@ -248,7 +248,7 @@ class AutoCrawler:
         except Exception as e:
             print('Exception {}:{} - {}'.format(site_name, keyword, e))
 
-    @jit(target="cuda")
+    @numba.jit
     def download(self, args):
         self.download_from_site(keyword=args[0], site_code=args[1])
 
