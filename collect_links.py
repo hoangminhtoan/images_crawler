@@ -12,6 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import os.path as osp
 import re
+from numba import jit, cuda
 
 
 class CollectLinks:
@@ -89,6 +90,7 @@ class CollectLinks:
     def remove_duplicates(_list):
         return list(dict.fromkeys(_list))
 
+    @jit(target="cuda")
     def bing(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
         self.browser.get("https://www.bing.com/images/search?q={}".format(keyword))
@@ -125,6 +127,7 @@ class CollectLinks:
 
         return links
 
+    @jit(target="cuda")
     def google(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
 
@@ -192,8 +195,8 @@ class CollectLinks:
         self.browser.close()
 
         return links
-        
-
+    
+    @jit(target="cuda")
     def baidu(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
 
@@ -263,6 +266,7 @@ class CollectLinks:
         
         return links
 
+    @jit(target="cuda")
     def naver(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
 
@@ -322,6 +326,7 @@ class CollectLinks:
 
         return links
 
+    @jit(target="cuda")
     def flickr(self, keyword, add_url=""):
         original_url = "https://www.flickr.com/search/?dimension_search_mode=min&height=640&width=640&text={}&advanced=1&page={}"
         self.browser.get(original_url.format(keyword, 1))
@@ -339,7 +344,7 @@ class CollectLinks:
                 img_url = 'https:'+ re.search(r'url\(\"(.*)\"\)', element.get_attribute("style")).group(1)
                 # the url like: https://live.staticflickr.com/xxx/xxxxx_m.jpg
                 # if you want to get a clearer(and larger) picture, remove the "_m" in the end of the url.
-                links.append(img_url.replace('_m.jpg', '.jpg'))
+                links.append(img_url.replace('_m.jpg', '_z.jpg'))
             
             if len(links) > 2121:
                 break
