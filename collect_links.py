@@ -323,23 +323,24 @@ class CollectLinks:
         return links
 
     def flickr(self, keyword, add_url=""):
-        original_url = "https://www.flickr.com/search/?height=640&width=640&dimension_search_mode=min&view_all=1&text={}".format(keyword)
-        self.browser.get(original_url)
+        original_url = "https://www.flickr.com/search/?dimension_search_mode=min&height=640&width=640&text={}&advanced=1&page={}"
+        self.browser.get(original_url.format(keyword, 1))
         time.sleep(1)
         
         links = []
-        count = 1
 
-        pages = range(1, 2)
+        pages = range(1, 50000)
 
         for page in pages:
-            concat_url = original_url.format(page)
+            concat_url = original_url.format(keyword, page)
             print("Now it is page", page)
             self.browser.get(concat_url)
             for element in self.browser.find_elements_by_css_selector(".photo-list-photo-view"):
                 img_url = 'https:'+ re.search(r'url\(\"(.*)\"\)', element.get_attribute("style")).group(1)
                 links.append(img_url)
-
+            
+            if len(links) > 3000:
+                break
 
         links = self.remove_duplicates(links)
         print('Collect links done. Site: {}, Keyword: {}, Total: {}'.format('naver_full', keyword, len(links)))
