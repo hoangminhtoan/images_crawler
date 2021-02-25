@@ -6,7 +6,6 @@ import argparse
 from collect_links import CollectLinks
 import imghdr
 import base64
-import numba
 from unidecode import unidecode # remove notation in vietnamese keywords
 
 
@@ -42,7 +41,7 @@ class AutoCrawler:
     def __init__(self, skip_already_exist=True, n_threads=4, 
                 do_google=True, do_naver=True, 
                 do_bing=True, do_baidu=True, do_flickr=True,
-                download_path='download_210224_1',
+                download_path='download',
                 full_resolution=True, face=False, no_gui=False, limit=0):
         """
         :param skip_already_exist: Skips keyword already downloaded before. This is needed when re-downloading.
@@ -154,10 +153,9 @@ class AutoCrawler:
         data = base64.decodebytes(bytes(encoded, encoding='utf-8'))
         return data
     
-    @numba.jit
     def download_images(self, keyword, links, site_name, max_count=0):
         keyword = unidecode(keyword)
-        keyword = keyword.replace(' ', '_')
+        keyword = keyword.strip().replace(' ', '_')
         self.make_dir('{}/{}'.format(self.download_path, keyword.replace('"', '')))
         total = len(links)
         success_count = 0
@@ -185,8 +183,7 @@ class AutoCrawler:
                     ext = self.get_extension_from_link(link)
                     is_base64 = False
                 
-                tmp = keyword.replace(' ', '_').strip()
-                no_ext_path = '{}/{}/{}_{}_{}'.format(self.download_path.replace('"', ''), tmp, tmp, site_name, str(index).zfill(4))
+                no_ext_path = os.path.join(self.download_path.replace('"', ''), keyword, "{}_{}_{}".format(tmp, site_name, str(index).zfill(5)))
                 path = no_ext_path + '.' + ext
                 self.save_object_to_file(response, path, is_base64=is_base64)
 
@@ -248,7 +245,6 @@ class AutoCrawler:
         except Exception as e:
             print('Exception {}:{} - {}'.format(site_name, keyword, e))
 
-    @numba.jit
     def download(self, args):
         self.download_from_site(keyword=args[0], site_code=args[1])
 
@@ -260,7 +256,7 @@ class AutoCrawler:
         for keyword in keywords:
             new_keyword = unidecode(keyword)
             new_keyword = new_keyword.replace(' ', '_')
-            dir_name = '{}/{}'.format(self.download_path, new_keyword)
+            dir_name = os.path.join(self.download_path, new_keyword)
             if os.path.exists(os.path.join(os.getcwd(), dir_name)) and self.skip:
                 print('Skipping already existing directory {}'.format(dir_name))
                 continue
