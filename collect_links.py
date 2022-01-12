@@ -2,7 +2,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import ElementNotVisibleException, StaleElementReferenceException
+from selenium.common.exceptions import StaleElementReferenceException
 import platform
 import requests
 import json
@@ -12,8 +12,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import os.path as osp
 import re
-import numba
-
 
 class CollectLinks:
     def __init__(self, no_gui=False):
@@ -90,7 +88,6 @@ class CollectLinks:
     def remove_duplicates(_list):
         return list(dict.fromkeys(_list))
 
-    @numba.jit
     def bing(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
         self.browser.get("https://www.bing.com/images/search?q={}".format(keyword))
@@ -127,7 +124,6 @@ class CollectLinks:
 
         return links
 
-    @numba.jit
     def google(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
 
@@ -196,7 +192,6 @@ class CollectLinks:
 
         return links
     
-    @numba.jit
     def baidu(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
 
@@ -266,7 +261,6 @@ class CollectLinks:
         
         return links
 
-    @numba.jit
     def naver(self, keyword, add_url=""):
         print('[Full Resolution Mode]')
 
@@ -326,7 +320,6 @@ class CollectLinks:
 
         return links
 
-    @numba.jit
     def flickr(self, keyword, add_url=""):
         original_url = "https://www.flickr.com/search/?dimension_search_mode=min&height=640&width=640&text={}&advanced=1&page={}"
         self.browser.get(original_url.format(keyword, 1))
@@ -344,13 +337,13 @@ class CollectLinks:
                 img_url = 'https:'+ re.search(r'url\(\"(.*)\"\)', element.get_attribute("style")).group(1)
                 # the url like: https://live.staticflickr.com/xxx/xxxxx_m.jpg
                 # if you want to get a clearer(and larger) picture, remove the "_m" in the end of the url.
-                links.append(img_url.replace('_m.jpg', '_z.jpg'))
+                links.append(img_url.replace('_m.jpg', '.jpg'))
             
-            if len(links) > 2121:
+            if len(links) > 2500:
                 break
 
         links = self.remove_duplicates(links)
-        print('Collect links done. Site: {}, Keyword: {}, Total: {}'.format('naver_full', keyword, len(links)))
+        print('Collect links done. Site: {}, Keyword: {}, Total: {}'.format('flicker_full', keyword, len(links)))
         self.browser.close()
 
         return links

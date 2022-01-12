@@ -1,12 +1,2 @@
-beauty salon
-cosmetics
-oliver young
-olay
-fragrances
-beauty spa 
-tattoos 
-sunglasses
-women clothes
-women fashion
-kids fashion
-
+car
+car toys
