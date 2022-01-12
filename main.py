@@ -7,6 +7,7 @@ from collect_links import CollectLinks
 import imghdr
 import base64
 import numba
+import numba.cuda
 from unidecode import unidecode # remove notation in vietnamese keywords
 
 
@@ -42,7 +43,7 @@ class AutoCrawler:
     def __init__(self, skip_already_exist=True, n_threads=4, 
                 do_google=True, do_naver=True, 
                 do_bing=True, do_baidu=True, do_flickr=True,
-                download_path='download_210224_1',
+                download_path='download_dresses',
                 full_resolution=True, face=False, no_gui=False, limit=0):
         """
         :param skip_already_exist: Skips keyword already downloaded before. This is needed when re-downloading.
@@ -154,7 +155,6 @@ class AutoCrawler:
         data = base64.decodebytes(bytes(encoded, encoding='utf-8'))
         return data
     
-    @numba.jit
     def download_images(self, keyword, links, site_name, max_count=0):
         keyword = unidecode(keyword)
         keyword = keyword.replace(' ', '_')
@@ -248,7 +248,6 @@ class AutoCrawler:
         except Exception as e:
             print('Exception {}:{} - {}'.format(site_name, keyword, e))
 
-    @numba.jit
     def download(self, args):
         self.download_from_site(keyword=args[0], site_code=args[1])
 
@@ -286,7 +285,7 @@ class AutoCrawler:
         pool.join()
         print('Task ended. Pool join.')
 
-        self.imbalance_check()
+        #self.imbalance_check()
 
         print('End Program')
 
@@ -339,11 +338,12 @@ if __name__ == '__main__':
     parser.add_argument('--skip', type=str, default='true',
                         help='Skips keyword already downloaded before. This is needed when re-downloading.')
     parser.add_argument('--threads', type=int, default=16, help='Number of threads to download.')
+    parser.add_argument('--download_path', type=str, default='friends', help="directory to save downloaded image")
     parser.add_argument('--google', type=str, default='true', help='Download from google.com (boolean)')
     parser.add_argument('--naver', type=str, default='false', help='Download from naver.com (boolean)')
-    parser.add_argument('--bing', type=str, default='false', help='Download from bing.com (boolean)')
+    parser.add_argument('--bing', type=str, default='true', help='Download from bing.com (boolean)')
     parser.add_argument('--baidu', type=str, default='false', help='Download from baidu.com (boolean)')
-    parser.add_argument('--flickr', type=str, default='true', help='Download from flickr.com (boolean)')
+    parser.add_argument('--flickr', type=str, default='false', help='Download from flickr.com (boolean)')
     parser.add_argument('--full', type=str, default='true', help='Download full resolution image instead of thumbnails (slow)')
     parser.add_argument('--face', type=str, default='false', help='Face search mode')
     parser.add_argument('--no_gui', type=str, default='auto', help='No GUI mode. Acceleration for full_resolution mode. '
@@ -376,6 +376,8 @@ if __name__ == '__main__':
 
     crawler = AutoCrawler(skip_already_exist=_skip, n_threads=_threads,
                           do_google=_google, do_naver=_naver, do_bing=_bing, do_baidu=_baidu,
-                          do_flickr=_flickr, full_resolution=_full,
+                          do_flickr=_flickr, 
+                          download_path = args.download_path,
+                          full_resolution=_full,
                           face=_face, no_gui=_no_gui, limit=_limit)
     crawler.do_crawling()
